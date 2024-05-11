@@ -260,6 +260,15 @@ export interface PublishInfo {
    *
    */
   bind?: (InterfaceName | IPAddress) | (InterfaceName | IPAddress)[];
+
+  /**
+   * If specified, the mdns server will advertise these additional addresses, next to the ones resolved.
+   * This is to help in situations like Docker where the interface's IP address does not equal the external one.
+   * These values are merely here for the purpose of advertising, and don't carry any semantic
+   * value. It is up to the administrator to verify that the service is reachable on this IP address.
+   */
+  advertiseAdditional?: IPAddress | IPAddress[];
+
   /**
    * Defines the port where the HAP server will be bound to.
    * When undefined port 0 will be used resulting in a random port.

@@ -75,6 +75,15 @@ export interface ServiceNetworkOptions {
    * configured to ignore this interface, the service won't be advertised on the interface.
    */
   restrictedAddresses?: (InterfaceName | IPAddress)[];
+
+  /**
+   * If specified, the mDNS server will advertise these additional addresses, next to the ones resolved.
+   * This is to help in situations like Docker where the interface's IP address does not equal the external one.
+   * These values are merely here for the purpose of advertising, and don't carry any semantic
+   * value. It is up to the administrator to verify that the service is reachable on this IP address.
+   */
+  advertiseAdditional?: IPAddress | IPAddress[];
+
   /**
    * The service won't advertise ipv6 address records.
    * This can be used to simulate binding on 0.0.0.0.
