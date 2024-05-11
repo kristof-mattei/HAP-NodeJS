@@ -260,6 +260,15 @@ export interface PublishInfo {
    *
    */
   bind?: (InterfaceName | IPAddress) | (InterfaceName | IPAddress)[];
+
+  /**
+   * If specified, the mDNS server will advertise this address only.
+   * This is to help in situations like Docker where the interface's IP address does not equal the external one.
+   * These value are merely here for the purpose of advertising, and does not carry any semantic
+   * value. It is up to the administrator to verify that the service is reachable on this IP address.
+   */
+  overrideAdvertised?: IPAddress;
+
   /**
    * Defines the port where the HAP server will be bound to.
    * When undefined port 0 will be used resulting in a random port.
@@ -1320,6 +1329,7 @@ export class Accessory extends EventEmitter {
       }, {
         restrictedAddresses: parsed.serviceRestrictedAddress,
         disabledIpv6: parsed.serviceDisableIpv6,
+        overrideAdvertised: info.overrideAdvertised,
       });
       break;
     case MDNSAdvertiser.BONJOUR:
